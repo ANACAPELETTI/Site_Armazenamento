@@ -4,40 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
     <title>Temporizador</title>
-    <style>
-      body {
-        background-color: black;
-        display: flex;
-        align-items: center;
-        margin: 64px;
-        flex-direction: column;
-      }
-
-      .start {
-        background-color: #ff4791;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        padding: 4px 12px;
-        font-size: 16px;
-      }
-
-      .stop {
-        background-color: #f8a6b1;
-        color: black;
-      }
-
-      button:hover {
-        background-color: #d46f99;
-        cursor: pointer;
-      }
-
-      h1 {
-        font-size: 82px;
-        color: white;
-      }
-    </style>
   </head>
   <body>
     <div>
@@ -46,47 +15,5 @@
       <button class="start stop" onclick="stop()">Reseta</button>
     </div>
     <h1>😉</h1>
-
-    <script>
-      const second = 1000;
-      const minute = 60 * second;
-      const hour = 60 * minute;
-      const day = 24 * hour;
-      let diff;
-      let finalDate;
-      let intervalID;
-
-      if (localStorage.getItem("timer")) {
-        finalDate = localStorage.getItem("timer");
-        intervalID = setInterval(interval, 1000);
-      }
-
-      function start() {
-        const date = document.querySelector("input").value;
-        finalDate = new Date(date).getTime();
-        localStorage.setItem("timer", finalDate);
-        intervalID = setInterval(interval, 1000);
-      }
-
-      function interval() {
-        let now = new Date().getTime();
-        diff = finalDate - now;
-
-        const days = Math.floor(diff / day);
-        const hours = Math.floor((diff % day) / hour) + 3;
-        const minutes = Math.floor((diff % hour) / minute);
-        const seconds = Math.floor((diff % minute) / second);
-
-        document.querySelector(
-          "h1"
-        ).innerHTML = `${days} d ${hours} h ${minutes} m ${seconds} s`;
-      }
-
-      function stop() {
-        document.querySelector("h1").innerText = "😉";
-        clearInterval(intervalID);
-        localStorage.removeItem("timer");
-      }
-    </script>
   </body>
 </html>
